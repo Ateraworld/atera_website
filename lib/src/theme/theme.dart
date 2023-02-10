@@ -8,10 +8,8 @@ const double dockHeight = 70;
 
 // ignore: long-method
 ThemeData mainTheme() => ThemeData(
-      //textTheme: Typography.whiteMountainView,
       fontFamily: "Nunito",
       useMaterial3: false,
-      // splashFactory: InkSparkle.splashFactory,
       // COLORS
       colorScheme: schemeTwo,
       scaffoldBackgroundColor: schemeTwo.background,
@@ -33,8 +31,7 @@ ThemeData mainTheme() => ThemeData(
           borderRadius: BorderRadius.circular(defaultRadius),
         ),
       ),
-      popupMenuTheme:
-          PopupMenuThemeData(shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(defaultRadius))),
+      popupMenuTheme: PopupMenuThemeData(shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(defaultRadius))),
 
       chipTheme: ChipThemeData(
         backgroundColor: schemeTwo.surfaceVariant,
@@ -67,7 +64,6 @@ ThemeData mainTheme() => ThemeData(
 
       textButtonTheme: TextButtonThemeData(
         style: ButtonStyle(
-          splashFactory: InkSparkle.splashFactory,
           shape: MaterialStatePropertyAll<OutlinedBorder>(
             RoundedRectangleBorder(borderRadius: BorderRadius.circular(defaultRadius)),
           ),
