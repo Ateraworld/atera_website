@@ -10,6 +10,7 @@ class SectionalPage extends StatefulWidget {
     required this.titleHeight,
     required this.scrollController,
     this.leading,
+    this.footer,
     this.scrollCurve = Curves.fastOutSlowIn,
     this.scrollDuration,
     this.fabSize = 64,
@@ -19,6 +20,7 @@ class SectionalPage extends StatefulWidget {
     this.titleStackAlignWidgets,
     this.titleBackground,
   });
+  final Widget? footer;
   final Widget? sectionSeparator;
   final Widget? fabChild;
   final double fabSize;
@@ -133,7 +135,8 @@ class _SectionalPageState extends State<SectionalPage> {
                   },
                 );
               },
-            )
+            ),
+            if (widget.footer != null) widget.footer!,
           ],
         ),
       ),

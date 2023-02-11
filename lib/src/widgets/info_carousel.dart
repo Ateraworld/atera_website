@@ -1,6 +1,3 @@
-import "dart:async";
-import "dart:math";
-
 import "package:atera_website/src/common/layout.dart";
 import "package:atera_website/src/widgets/responsive_text.dart";
 import "package:carousel_slider/carousel_slider.dart";
@@ -176,7 +173,9 @@ class _InfoCarouselState extends State<InfoCarousel> {
     );
   }
 
-  void _onPageChanged(int index, CarouselPageChangedReason reason) => setState(() => _index = index);
+  void _onPageChanged(int index, CarouselPageChangedReason reason) {
+    setState(() => _index = index);
+  }
 }
 
 class Info {

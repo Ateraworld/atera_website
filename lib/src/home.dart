@@ -64,6 +64,28 @@ class _HomePageState extends State<HomePage> {
             sectionSeparator: Divider(height: dimensionFromSizeFactor(context, 16), indent: 32, endIndent: 32),
             fabPadding: EdgeInsets.all(dimensionFromSizeFactor(context, 6)),
             scrollController: _scrollController,
+            footer: SizedBox(
+              child: Padding(
+                padding: EdgeInsets.all(dimensionFromSizeFactor(context, 8)),
+                child: Column(
+                  children: [
+                    Divider(
+                      height: dimensionFromSizeFactor(context, 16),
+                      indent: dimensionFromSizeFactor(context, 16),
+                      endIndent: dimensionFromSizeFactor(context, 16),
+                    ),
+                    const Opacity(
+                      opacity: 0.5,
+                      child: ResponsiveText(
+                        "Icons made by (Pixel perfect, Vitaly Gorbachev, inkubators, Freepik, Those icons, Graphics Plazza) from www.flaticon.com",
+                        textAlign: TextAlign.center,
+                        sizeFactor: 2.5,
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ),
             titleStackAlignWidgets: [
               Align(
                 alignment: Alignment.center,
@@ -247,7 +269,7 @@ class _HomePageState extends State<HomePage> {
                     ),
                     TextSpan(
                       text:
-                          " e che possa portare beneficio ad entrambe le entità che fanno parte del nostro ecosistema. Atera si basa quindi sull'interazione tra gli utenti interessati al mondo delle attività outdoor e negozi e brand interessati a promuovere i loro prodotti in un ambiente estremamente mirato.\n",
+                          " e che possa portare beneficio ad entrambe le entità che fanno parte del nostro ecosistema. Atera si basa quindi sull'interazione tra gli utenti interessati al mondo delle attività outdoor e negozi e brand interessati a promuovere i loro prodotti in un ambiente estremamente mirato.\n\nGli enti turistici e le associazioni potranno godere anch'essi dei benefici di Atera. Fornendo dati di attività in specifiche zone infatti, la promozione del turismo è uno degli obiettivi che si pone Atera.\nInoltre, le associazioni responsabili del mantenimento delle infrastrutture, potranno avere un canale di comunicazione immediato tramite il quale poter incentivare un turismo più consapevole e informato.\n",
                       style: Theme.of(context)
                           .textTheme
                           .bodyMedium
