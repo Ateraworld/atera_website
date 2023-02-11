@@ -24,6 +24,8 @@ class _HomePageState extends State<HomePage> {
   bool _initiated = false;
 
   Future<void> _init() async {
+    await _controller.initialize();
+    await _controller.setLooping(true);
     setState(() => _initiated = true);
   }
 
@@ -38,17 +40,8 @@ class _HomePageState extends State<HomePage> {
 
   @override
   void initState() {
-    _controller.initialize().then((value) {
-      setState(() {});
-      _controller.play();
-      _controller.setLooping(true);
-    }).onError((error, stackTrace) {
-      debugPrint(error?.toString());
-      return Future.error(error!);
-    });
-
-    super.initState();
     _init();
+    super.initState();
   }
 
   @override
@@ -59,6 +52,9 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
+    if (_controller.value.isInitialized && !_controller.value.isPlaying) {
+      _controller.play();
+    }
     var screenSize = MediaQuery.of(context).size;
     _titleHeight = dimensionFromSizeFactor(context, 120);
     return _initiated
