@@ -39,12 +39,12 @@ class _InfoCarouselState extends State<InfoCarousel> {
 
   void _animateNextPage() {
     if (!mounted) return;
-    Future.delayed(Duration(milliseconds: 4000 + (_rand.nextInt(6000))), () {
+    Future.delayed(Duration(milliseconds: 2500 + (_rand.nextInt(6000))), () {
       if (_canAutoPlay) {
         if (_index == widget.info.length - 1) {
-          _controller.animateToPage(0, duration: const Duration(milliseconds: 250), curve: Curves.fastOutSlowIn);
+          _controller.animateToPage(0, duration: const Duration(milliseconds: 2000), curve: Curves.fastOutSlowIn);
         } else {
-          _controller.nextPage(duration: const Duration(milliseconds: 250), curve: Curves.fastOutSlowIn);
+          _controller.nextPage(duration: const Duration(milliseconds: 1000), curve: Curves.fastOutSlowIn);
         }
       }
       _animateNextPage();

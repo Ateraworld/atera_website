@@ -41,6 +41,7 @@ dependencies:
     equatable: ^2.0.5
     smooth_page_indicator: ^1.0.0+2
     collection: ^1.17.0
+    video_player: ^2.5.1
 
 dev_dependencies:
     flutter_test:
@@ -62,6 +63,7 @@ flutter:
         - assets/images/
         - assets/fonts/
         - assets/lottie/
+        - assets/videos/
 
     # To add custom fonts to your application, add a fonts section here,
     # in this "flutter" section. Each entry in this list should have a

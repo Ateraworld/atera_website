@@ -2,8 +2,8 @@ import "package:atera_website/src/common/layout.dart";
 import "package:flutter/material.dart";
 
 class Responsive extends StatelessWidget {
-  const Responsive({super.key, this.sizeFactor = 2, required this.child});
-  final Widget child;
+  const Responsive({super.key, this.sizeFactor = 2, this.child});
+  final Widget? child;
   final double sizeFactor;
 
   @override

@@ -25,27 +25,38 @@ class MemberAvatar extends StatefulWidget {
 }
 
 class _MemberAvatarState extends State<MemberAvatar> with SingleTickerProviderStateMixin {
+  @override
+  void initState() {
+    super.initState();
+  }
+
   double _scale = 1;
   @override
   Widget build(BuildContext context) {
+    precacheImage(AssetImage(widget.imageUrl), context);
     return Column(
       children: [
-        ResponsiveText(widget.name, sizeFactor: widget.textSizeFactor),
-        const Responsive(child: SizedBox(height: 20)),
+        ResponsiveText(widget.name, sizeFactor: sizeFactorFromCategory(TextCategory.header)),
+        const Responsive(sizeFactor: 6),
         MouseRegion(
-          onEnter: (event) => setState(() => _scale = 1.075),
+          onEnter: (event) => setState(() => _scale = 1.05),
           onExit: (event) => setState(() => _scale = 1),
           child: AnimatedScale(
             duration: const Duration(milliseconds: 250),
             curve: Curves.fastOutSlowIn,
             scale: _scale,
-            child: CircleAvatar(
-              radius: dimensionFromSizeFactor(context, widget.avatarSizeFactor),
-              backgroundImage: Image.asset(widget.imageUrl).image,
+            child: ClipOval(
+              child: Responsive(
+                sizeFactor: dimensionFromSizeFactor(context, widget.avatarSizeFactor, min: 32, max: 128),
+                child: Image.asset(
+                  widget.imageUrl,
+                  fit: BoxFit.cover,
+                ),
+              ),
             ),
           ),
         ),
-        const Responsive(child: SizedBox(height: 12)),
+        const Responsive(sizeFactor: 4),
         Opacity(
           opacity: 0.6,
           child: widget.photoInfo != ""
