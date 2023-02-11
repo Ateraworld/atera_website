@@ -25,7 +25,10 @@ class _HomePageState extends State<HomePage> {
 
   Future<void> _init() async {
     await _controller.initialize();
-    await _controller.setLooping(true);
+    Future.delayed(const Duration(seconds: 4), () {
+      _controller.setLooping(true);
+      _controller.play();
+    });
     setState(() => _initiated = true);
   }
 
@@ -52,9 +55,6 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
-    if (_controller.value.isInitialized && !_controller.value.isPlaying) {
-      _controller.play();
-    }
     var screenSize = MediaQuery.of(context).size;
     _titleHeight = dimensionFromSizeFactor(context, 120);
     return _initiated
@@ -321,6 +321,56 @@ class _HomePageState extends State<HomePage> {
               descriptionSizeFactor: sizeFactorFromCategory(TextCategory.label),
               titleSizeFactor: sizeFactorFromCategory(TextCategory.body),
               title: ResponsiveText(
+                "Per gli enti turistici",
+                sizeFactor: sizeFactorFromCategory(TextCategory.header),
+                textAlign: TextAlign.center,
+              ),
+              info: [
+                Info(
+                  "assets/images/turismo.png",
+                  "Promozione del turismo territoriale",
+                  "Il sistema di Atera è estremamente modulare: gli enti turistici e le amministrazioni locali potranno anch'esse fornire sconti e benefici per luoghi di interesse ed attività. In questa maniera, sarà possibile promuovere il territorio a persone direttamente interessate",
+                ),
+                Info(
+                  "assets/images/comunicazione.png",
+                  "Canale di comunicazione",
+                  "Tramite la piattaforma, le associazioni incaricate del mantenimento delle infrastrutture delle attività avranno la possibilità di comunicare stato, avvisi e più in generale informazioni utili per sensibilizzare e promuovere un turismo responsabile e bene informato",
+                ),
+              ],
+            ),
+            const Divider(height: 64, thickness: 1, endIndent: 64, indent: 64),
+            InfoCarousel(
+              descriptionSizeFactor: sizeFactorFromCategory(TextCategory.label),
+              titleSizeFactor: sizeFactorFromCategory(TextCategory.body),
+              title: ResponsiveText(
+                "Per i brand",
+                sizeFactor: sizeFactorFromCategory(TextCategory.header),
+                textAlign: TextAlign.center,
+              ),
+              mirrored: true,
+              info: [
+                Info(
+                  "assets/images/app_page.png",
+                  "Una pagina dedicata",
+                  "Atera permette la creazione di pagine dedicate all'interno dell'applicazione, incrementando la visibilità degli esercizi commerciali",
+                ),
+                Info(
+                  "assets/images/target.png",
+                  "Pubblico estremamente mirato",
+                  "Proprio grazie alla sua struttura e idea, Atera raggruppa una community genuinamente interessata al mondo delle attività outdoor",
+                ),
+                Info(
+                  "assets/images/revenue.png",
+                  "Incrementa la tua customer base",
+                  "Fornendo sconti e benefici agli utenti di Atera, incrementi la visibilità dell'esercizio commerciale e attrai una clientela interessata ai tuoi prodotti",
+                ),
+              ],
+            ),
+            const Divider(height: 64, thickness: 1, endIndent: 64, indent: 64),
+            InfoCarousel(
+              descriptionSizeFactor: sizeFactorFromCategory(TextCategory.label),
+              titleSizeFactor: sizeFactorFromCategory(TextCategory.body),
+              title: ResponsiveText(
                 "Per gli utenti",
                 sizeFactor: sizeFactorFromCategory(TextCategory.header),
                 textAlign: TextAlign.center,
@@ -348,34 +398,6 @@ class _HomePageState extends State<HomePage> {
                 ),
               ],
             ),
-            const Divider(height: 40, thickness: 1, endIndent: 64, indent: 64),
-            InfoCarousel(
-              descriptionSizeFactor: sizeFactorFromCategory(TextCategory.label),
-              titleSizeFactor: sizeFactorFromCategory(TextCategory.body),
-              title: ResponsiveText(
-                "Per i brand",
-                sizeFactor: sizeFactorFromCategory(TextCategory.header),
-                textAlign: TextAlign.center,
-              ),
-              mirrored: true,
-              info: [
-                Info(
-                  "assets/images/app_page.png",
-                  "Una pagina dedicata",
-                  "Atera permette la creazione di pagine dedicate all'interno dell'applicazione, incrementando la visibilità degli esercizi commerciali",
-                ),
-                Info(
-                  "assets/images/target.png",
-                  "Pubblico estremamente mirato",
-                  "Proprio grazie alla sua struttura e idea, Atera raggruppa una community genuinamente interessata al mondo delle attività outdoor",
-                ),
-                Info(
-                  "assets/images/revenue.png",
-                  "Incrementa la tua customer base",
-                  "Fornendo sconti e benefici agli utenti di Atera, incrementi la visibilità dell'esercizio commerciale e attrai una clientela interessata ai tuoi prodotti",
-                ),
-              ],
-            )
           ],
         ),
       ),
@@ -588,9 +610,14 @@ class _HomePageState extends State<HomePage> {
                       "Integrazione di attività sciistiche",
                       "Vogliamo permettere l'attestazione di attività in ambito sciistico con la possibilità di riscattare sconti sull'acquisto di skipass presso i più grandi comprensori delle Dolomiti",
                     ),
-                    RoadmapStep("Espansione in Veneto", ""),
-                    RoadmapStep("Espansione in Friuli Venezia Giulia", ""),
-                    RoadmapStep("Espansione in Svizzera e Austria", ""),
+                    RoadmapStep(
+                      "Collaborazioni con enti turistici",
+                      "Gli enti turistici rappresentano un entità importante all'interno di Atera. Collaborando con questi ultimi, sarà possibile da un lato fornire informazioni sempre aggiornate e controllate riguardo le attività, dall'altro permettere la promozione del turismo in località mirate.",
+                    ),
+                    RoadmapStep(
+                      "Espansione in altre località",
+                      "Atera partirà dalla regione del Trentino. Tuttavia puntiamo ad espanderci presto a tutto l'arco alpino fino al centro Italia, coprendo un giorno tutte le attività disponibili sul territorio Italiano",
+                    ),
                   ],
                 ),
                 RoadmapStep(

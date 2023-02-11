@@ -29,26 +29,11 @@ class InfoCarousel extends StatefulWidget {
 class _InfoCarouselState extends State<InfoCarousel> {
   final CarouselController _controller = CarouselController();
   int _index = 0;
-  late final Random _rand = Random(hashCode);
-  bool _canAutoPlay = true;
+  double _opacity = 1;
   @override
   void initState() {
     super.initState();
-    _animateNextPage();
-  }
-
-  void _animateNextPage() {
-    if (!mounted) return;
-    Future.delayed(Duration(milliseconds: 2500 + (_rand.nextInt(6000))), () {
-      if (_canAutoPlay) {
-        if (_index == widget.info.length - 1) {
-          _controller.animateToPage(0, duration: const Duration(milliseconds: 2000), curve: Curves.fastOutSlowIn);
-        } else {
-          _controller.nextPage(duration: const Duration(milliseconds: 1000), curve: Curves.fastOutSlowIn);
-        }
-      }
-      _animateNextPage();
-    });
+    //_animateNextPage();
   }
 
   @override
@@ -60,101 +45,138 @@ class _InfoCarouselState extends State<InfoCarousel> {
   Widget build(BuildContext context) {
     var widgets = [
       Expanded(
-        child: ShaderMask(
-          blendMode: BlendMode.srcATop,
-          shaderCallback: (rect) {
-            return LinearGradient(
-              tileMode: TileMode.clamp,
-              stops: const [0, 0.075, 0.5, 0.925, 1],
-              colors: [
-                Theme.of(context).colorScheme.background,
-                Colors.transparent,
-                Colors.transparent,
-                Colors.transparent,
-                Theme.of(context).colorScheme.background,
-              ],
-            ).createShader(rect);
-          },
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            TextButton(
+              onPressed: _index <= 0
+                  ? null
+                  : () {
+                      setState(() => _opacity = 0);
+                      _controller
+                          .previousPage(duration: const Duration(milliseconds: 500), curve: Curves.fastOutSlowIn)
+                          .then((value) => setState(() => _opacity = 1));
+                    },
+              child: Icon(
+                Icons.arrow_left_rounded,
+                size: dimensionFromSizeFactor(context, 16),
+              ),
+            ),
+            Expanded(
+              child: Padding(
+                padding: EdgeInsets.symmetric(horizontal: dimensionFromSizeFactor(context, 4)),
+                child: ShaderMask(
+                  blendMode: BlendMode.srcATop,
+                  shaderCallback: (rect) {
+                    return LinearGradient(
+                      tileMode: TileMode.clamp,
+                      stops: const [0, 0.075, 0.5, 0.925, 1],
+                      colors: [
+                        Theme.of(context).colorScheme.background,
+                        Colors.transparent,
+                        Colors.transparent,
+                        Colors.transparent,
+                        Theme.of(context).colorScheme.background,
+                      ],
+                    ).createShader(rect);
+                  },
+                  child: Column(
+                    children: [
+                      if (widget.title != null) widget.title!,
+                      CarouselSlider.builder(
+                        carouselController: _controller,
+                        itemCount: widget.info.length,
+                        itemBuilder: (context, index, page) {
+                          return Image.asset(
+                            widget.info.elementAt(index).imageAssetUrl,
+                            fit: BoxFit.contain,
+                          );
+                        },
+                        options: CarouselOptions(
+                          height: dimensionFromSizeFactor(context, 46, max: 320),
+                          viewportFraction: 1,
+                          padEnds: true,
+                          onPageChanged: _onPageChanged,
+                          autoPlay: true,
+                          autoPlayInterval: const Duration(seconds: 10),
+                          pauseAutoPlayOnManualNavigate: true,
+                          pauseAutoPlayOnTouch: true,
+                          enableInfiniteScroll: false,
+                          pageSnapping: true,
+                        ),
+                      ),
+                      AnimatedSmoothIndicator(
+                        activeIndex: _index,
+                        curve: Curves.fastOutSlowIn,
+                        effect: WormEffect(
+                          activeDotColor: Theme.of(context).colorScheme.secondary,
+                          dotHeight: dimensionFromSizeFactor(context, widget.descriptionSizeFactor / 2),
+                          dotWidth: dimensionFromSizeFactor(context, widget.descriptionSizeFactor / 2),
+                          spacing: dimensionFromSizeFactor(context, widget.descriptionSizeFactor),
+                        ),
+                        count: widget.info.length,
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+            ),
+            TextButton(
+              onPressed: _index >= widget.info.length - 1
+                  ? null
+                  : () {
+                      setState(() => _opacity = 0);
+                      _controller
+                          .nextPage(duration: const Duration(milliseconds: 500), curve: Curves.fastOutSlowIn)
+                          .then((value) => setState(() => _opacity = 1));
+                    },
+              child: Icon(
+                Icons.arrow_right_rounded,
+                size: dimensionFromSizeFactor(context, 16),
+              ),
+            ),
+          ],
+        ),
+      ),
+      Expanded(
+        child: AnimatedOpacity(
+          opacity: _opacity,
+          duration: const Duration(milliseconds: 200),
           child: Column(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            mainAxisSize: MainAxisSize.max,
             children: [
-              if (widget.title != null) widget.title!,
-              CarouselSlider.builder(
-                carouselController: _controller,
-                itemCount: widget.info.length,
-                itemBuilder: (context, index, page) {
-                  return Image.asset(
-                    widget.info.elementAt(index).imageAssetUrl,
-                    fit: BoxFit.contain,
-                  );
-                },
-                options: CarouselOptions(
-                  height: dimensionFromSizeFactor(context, 46, max: 320),
-                  viewportFraction: 1,
-                  padEnds: true,
-                  onPageChanged: _onPageChanged,
-                  enableInfiniteScroll: false,
-                  pageSnapping: true,
-                ),
+              ResponsiveText(
+                widget.info.elementAt(_index).title,
+                sizeFactor: widget.titleSizeFactor,
+                style: Theme.of(context).textTheme.bodyMedium?.copyWith(color: Theme.of(context).colorScheme.secondary),
+                textAlign: TextAlign.center,
               ),
-              AnimatedSmoothIndicator(
-                activeIndex: _index,
-                curve: Curves.fastOutSlowIn,
-                effect: WormEffect(
-                  activeDotColor: Theme.of(context).colorScheme.secondary,
-                  dotHeight: dimensionFromSizeFactor(context, widget.descriptionSizeFactor / 2),
-                  dotWidth: dimensionFromSizeFactor(context, widget.descriptionSizeFactor / 2),
-                  spacing: dimensionFromSizeFactor(context, widget.descriptionSizeFactor),
+              Padding(
+                padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 32),
+                child: ResponsiveText(
+                  widget.info.elementAt(_index).description,
+                  sizeFactor: widget.descriptionSizeFactor,
+                  textAlign: TextAlign.center,
                 ),
-                count: widget.info.length,
-              ),
+              )
             ],
           ),
         ),
       ),
-      Expanded(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          mainAxisSize: MainAxisSize.max,
-          children: [
-            ResponsiveText(
-              widget.info.elementAt(_index).title,
-              sizeFactor: widget.titleSizeFactor,
-              style: Theme.of(context).textTheme.bodyMedium?.copyWith(color: Theme.of(context).colorScheme.secondary),
-              textAlign: TextAlign.center,
-            ),
-            Padding(
-              padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 32),
-              child: ResponsiveText(
-                widget.info.elementAt(_index).description,
-                sizeFactor: widget.descriptionSizeFactor,
-                textAlign: TextAlign.center,
-              ),
-            )
-          ],
-        ),
-      ),
     ];
-    return Flex(
-      direction: Axis.horizontal,
-      mainAxisSize: MainAxisSize.min,
-      children: List.from(widget.mirrored ? widgets.reversed : widgets),
+    return Padding(
+      padding: EdgeInsets.symmetric(horizontal: dimensionFromSizeFactor(context, 4)),
+      child: Flex(
+        direction: Axis.horizontal,
+        mainAxisSize: MainAxisSize.min,
+        children: List.from(widget.mirrored ? widgets.reversed : widgets),
+      ),
     );
   }
 
-  void _onPageChanged(int index, CarouselPageChangedReason reason) {
-    if (reason.name == "manual") {
-      setState(() {
-        _canAutoPlay = false;
-      });
-      Future.delayed(const Duration(seconds: 8), () {
-        if (!mounted) return;
-        setState(() {
-          _canAutoPlay = true;
-        });
-      });
-    }
-    setState(() => _index = index);
-  }
+  void _onPageChanged(int index, CarouselPageChangedReason reason) => setState(() => _index = index);
 }
 
 class Info {

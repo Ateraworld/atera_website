@@ -52,14 +52,14 @@ class _SectionalPageState extends State<SectionalPage> {
           children: [
             if (widget.leading != null) widget.leading!,
             Wrap(
-              spacing: dimensionFromSizeFactor(context, 5),
+              spacing: dimensionFromSizeFactor(context, 4),
               children: List.generate(
                 widget.sections.length,
                 (index) => TextButton(
                   onPressed: () {
                     widget.scrollController.animateTo(
                       _getOffset(index),
-                      duration: widget.scrollDuration ?? const Duration(milliseconds: 500),
+                      duration: widget.scrollDuration ?? const Duration(milliseconds: 750),
                       curve: widget.scrollCurve,
                     );
                   },
@@ -103,7 +103,7 @@ class _SectionalPageState extends State<SectionalPage> {
             onPressed: () {
               widget.scrollController.animateTo(
                 0,
-                duration: widget.scrollDuration ?? const Duration(milliseconds: 500),
+                duration: widget.scrollDuration ?? const Duration(milliseconds: 1000),
                 curve: widget.scrollCurve,
               );
             },
