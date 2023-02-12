@@ -9,7 +9,7 @@ class MemberAvatar extends StatefulWidget {
     required this.name,
     required this.imageUrl,
     this.textSizeFactor = 4,
-    this.avatarSizeFactor = 12,
+    this.avatarSizeFactor = 16,
     this.photoInfo = "",
   });
   final double textSizeFactor;
@@ -47,7 +47,7 @@ class _MemberAvatarState extends State<MemberAvatar> with SingleTickerProviderSt
             scale: _scale,
             child: ClipOval(
               child: Responsive(
-                sizeFactor: dimensionFromSizeFactor(context, widget.avatarSizeFactor, min: 32, max: 128),
+                sizeFactor: dimensionFromSizeFactor(context, widget.avatarSizeFactor, min: 55, max: 150),
                 child: Image.asset(
                   widget.imageUrl,
                   fit: BoxFit.cover,
@@ -66,9 +66,9 @@ class _MemberAvatarState extends State<MemberAvatar> with SingleTickerProviderSt
                   children: [
                     Icon(
                       Icons.camera_alt_rounded,
-                      size: dimensionFromSizeFactor(context, widget.textSizeFactor / 2),
+                      size: dimensionFromSizeFactor(context, sizeFactorFromCategory(TextCategory.caption)),
                     ),
-                    ResponsiveText(widget.photoInfo, sizeFactor: widget.textSizeFactor / 2),
+                    ResponsiveText(widget.photoInfo, sizeFactor: sizeFactorFromCategory(TextCategory.caption)),
                   ],
                 )
               : null,

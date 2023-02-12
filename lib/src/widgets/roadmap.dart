@@ -152,7 +152,7 @@ class _RoadmapState extends State<Roadmap> {
                             children: [
                               Icon(
                                 _iconByState(subStep.state),
-                                size: dimensionFromSizeFactor(context, 6),
+                                size: dimensionFromSizeFactor(context, 10),
                                 color: Theme.of(context).colorScheme.onBackground,
                               ),
                               ResponsiveText(
@@ -163,7 +163,7 @@ class _RoadmapState extends State<Roadmap> {
                             ],
                           ),
                           Padding(
-                            padding: EdgeInsets.only(left: dimensionFromSizeFactor(context, 10)),
+                            padding: EdgeInsets.only(left: dimensionFromSizeFactor(context, 14)),
                             child: ResponsiveText(
                               subStep.description,
                               sizeFactor: sizeFactorFromCategory(TextCategory.label),

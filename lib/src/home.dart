@@ -56,7 +56,7 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     var screenSize = MediaQuery.of(context).size;
-    _titleHeight = dimensionFromSizeFactor(context, 120);
+    _titleHeight = dimensionFromSizeFactor(context, 200);
     return _initiated
         ? SectionalPage(
             fabChild: const Icon(Icons.keyboard_arrow_up_rounded),
@@ -94,6 +94,7 @@ class _HomePageState extends State<HomePage> {
                   children: [
                     ResponsiveText(
                       "ATERA",
+                      textAlign: TextAlign.center,
                       sizeFactor: sizeFactorFromCategory(TextCategory.title),
                       style: const TextStyle(fontFamily: "Montserrat"),
                     ),
@@ -103,6 +104,7 @@ class _HomePageState extends State<HomePage> {
                     ),
                     ResponsiveText(
                       "Scopri nuove avventure",
+                      textAlign: TextAlign.center,
                       sizeFactor: sizeFactorFromCategory(TextCategory.body),
                       style: const TextStyle(fontFamily: "Montserrat"),
                     ),
@@ -112,6 +114,7 @@ class _HomePageState extends State<HomePage> {
                     ),
                     ResponsiveText(
                       "Poniti degli obiettivi",
+                      textAlign: TextAlign.center,
                       sizeFactor: sizeFactorFromCategory(TextCategory.body),
                       style: const TextStyle(fontFamily: "Montserrat"),
                     ),
@@ -121,6 +124,7 @@ class _HomePageState extends State<HomePage> {
                     ),
                     ResponsiveText(
                       "Ottieni sconti e benefici grazie alle tue passioni",
+                      textAlign: TextAlign.center,
                       sizeFactor: sizeFactorFromCategory(TextCategory.body),
                       style: const TextStyle(fontFamily: "Montserrat"),
                     ),
@@ -152,7 +156,7 @@ class _HomePageState extends State<HomePage> {
             ),
             leading: Icon(
               AteraIcons.logo,
-              size: dimensionFromSizeFactor(context, 20),
+              size: dimensionFromSizeFactor(context, 32),
             ),
             sections: [
               Section(
@@ -160,7 +164,6 @@ class _HomePageState extends State<HomePage> {
                   "Idea",
                   sizeFactor: sizeFactorFromCategory(TextCategory.body),
                   max: 36,
-                  min: 20,
                   style: Theme.of(context).textTheme.titleLarge,
                 ),
                 child: _buildIdeaSection(),
@@ -170,7 +173,6 @@ class _HomePageState extends State<HomePage> {
                   "Progetto",
                   sizeFactor: sizeFactorFromCategory(TextCategory.body),
                   max: 36,
-                  min: 20,
                   style: Theme.of(context).textTheme.titleLarge,
                 ),
                 child: _buildProjectSection(),
@@ -180,7 +182,6 @@ class _HomePageState extends State<HomePage> {
                   "Piano",
                   sizeFactor: sizeFactorFromCategory(TextCategory.body),
                   max: 36,
-                  min: 20,
                   style: Theme.of(context).textTheme.titleLarge,
                 ),
                 child: _buildRoadmap(),
@@ -190,7 +191,6 @@ class _HomePageState extends State<HomePage> {
                   "Team",
                   sizeFactor: sizeFactorFromCategory(TextCategory.body),
                   max: 36,
-                  min: 20,
                   style: Theme.of(context).textTheme.titleLarge,
                 ),
                 child: _buildTeamSection(),
@@ -208,10 +208,11 @@ class _HomePageState extends State<HomePage> {
       child: Padding(
         padding: EdgeInsets.all(dimensionFromSizeFactor(context, 10)),
         child: Column(
-          crossAxisAlignment: CrossAxisAlignment.end,
+          crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
             ResponsiveText(
               "Il nostro progetto",
+              textAlign: TextAlign.end,
               sizeFactor: sizeFactorFromCategory(TextCategory.header),
               style: TextStyle(
                 fontFamily: "Montserrat",
@@ -222,6 +223,7 @@ class _HomePageState extends State<HomePage> {
             Padding(
               padding: EdgeInsets.only(top: dimensionFromSizeFactor(context, 8)),
               child: RichText(
+                textAlign: TextAlign.justify,
                 text: TextSpan(
                   children: [
                     TextSpan(
@@ -318,6 +320,7 @@ class _HomePageState extends State<HomePage> {
             Padding(
               padding: EdgeInsets.symmetric(vertical: dimensionFromSizeFactor(context, 4)),
               child: RichText(
+                textAlign: TextAlign.justify,
                 text: TextSpan(
                   children: [
                     TextSpan(
@@ -344,19 +347,19 @@ class _HomePageState extends State<HomePage> {
               titleSizeFactor: sizeFactorFromCategory(TextCategory.body),
               title: ResponsiveText(
                 "Per gli enti turistici",
-                sizeFactor: sizeFactorFromCategory(TextCategory.header),
+                sizeFactor: sizeFactorFromCategory(TextCategory.body),
                 textAlign: TextAlign.center,
               ),
               info: [
                 Info(
                   "assets/images/turismo.png",
                   "Promozione del turismo territoriale",
-                  "Il sistema di Atera è estremamente modulare: gli enti turistici e le amministrazioni locali potranno anch'esse fornire sconti e benefici per luoghi di interesse ed attività. In questa maniera, sarà possibile promuovere il territorio a persone direttamente interessate",
+                  "Il sistema di Atera è estremamente modulare: gli enti turistici e le amministrazioni locali fornendo sconti e benefici hanno la possibilità di promuovere il territorio a persone direttamente interessate",
                 ),
                 Info(
                   "assets/images/comunicazione.png",
                   "Canale di comunicazione",
-                  "Tramite la piattaforma, le associazioni incaricate del mantenimento delle infrastrutture delle attività avranno la possibilità di comunicare stato, avvisi e più in generale informazioni utili per sensibilizzare e promuovere un turismo responsabile e bene informato",
+                  "Le associazioni incaricate del mantenimento delle infrastrutture avranno la possibilità di comunicare stato, avvisi e più in generale informazioni utili per sensibilizzare e promuovere un turismo responsabile e bene informato",
                 ),
               ],
             ),
@@ -366,7 +369,7 @@ class _HomePageState extends State<HomePage> {
               titleSizeFactor: sizeFactorFromCategory(TextCategory.body),
               title: ResponsiveText(
                 "Per i brand",
-                sizeFactor: sizeFactorFromCategory(TextCategory.header),
+                sizeFactor: sizeFactorFromCategory(TextCategory.body),
                 textAlign: TextAlign.center,
               ),
               mirrored: true,
@@ -394,7 +397,7 @@ class _HomePageState extends State<HomePage> {
               titleSizeFactor: sizeFactorFromCategory(TextCategory.body),
               title: ResponsiveText(
                 "Per gli utenti",
-                sizeFactor: sizeFactorFromCategory(TextCategory.header),
+                sizeFactor: sizeFactorFromCategory(TextCategory.body),
                 textAlign: TextAlign.center,
               ),
               info: [
@@ -434,9 +437,10 @@ class _HomePageState extends State<HomePage> {
       child: Padding(
         padding: EdgeInsets.all(dimensionFromSizeFactor(context, 10)),
         child: Column(
-          crossAxisAlignment: CrossAxisAlignment.end,
+          crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
             ResponsiveText(
+              textAlign: TextAlign.center,
               sizeFactor: sizeFactorFromCategory(TextCategory.header),
               "Chi siamo",
               style: const TextStyle(fontFamily: "Montserrat", fontWeight: FontWeight.w800),
@@ -446,6 +450,7 @@ class _HomePageState extends State<HomePage> {
                 vertical: dimensionFromSizeFactor(context, 8),
               ),
               child: RichText(
+                textAlign: TextAlign.justify,
                 text: TextSpan(
                   children: [
                     TextSpan(
@@ -518,21 +523,18 @@ class _HomePageState extends State<HomePage> {
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
                   MemberAvatar(
-                    avatarSizeFactor: 10,
                     textSizeFactor: sizeFactorFromCategory(TextCategory.body),
                     name: "Matteo",
                     imageUrl: "assets/images/trat.webp",
                     photoInfo: "Ferrata O. Marangoni, Mori",
                   ),
                   MemberAvatar(
-                    avatarSizeFactor: 10,
                     textSizeFactor: sizeFactorFromCategory(TextCategory.body),
                     name: "Enrico",
                     imageUrl: "assets/images/eri.webp",
                     photoInfo: "Ferrata Hoachwool, Naturno",
                   ),
                   MemberAvatar(
-                    avatarSizeFactor: 10,
                     textSizeFactor: sizeFactorFromCategory(TextCategory.body),
                     name: "Thomas",
                     imageUrl: "assets/images/thom.webp",

@@ -46,15 +46,15 @@ class _SectionalPageState extends State<SectionalPage> {
 
   Widget _buildMenuBar() {
     return Padding(
-      padding: EdgeInsets.all(dimensionFromSizeFactor(context, 4)),
-      child: Padding(
-        padding: EdgeInsets.only(right: dimensionFromSizeFactor(context, 4)),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            if (widget.leading != null) widget.leading!,
-            Wrap(
-              spacing: dimensionFromSizeFactor(context, 4),
+      padding: EdgeInsets.all(dimensionFromSizeFactor(context, 6)),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          if (widget.leading != null) widget.leading!,
+          Expanded(
+            child: Row(
+              mainAxisSize: MainAxisSize.max,
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: List.generate(
                 widget.sections.length,
                 (index) => TextButton(
@@ -68,9 +68,9 @@ class _SectionalPageState extends State<SectionalPage> {
                   child: widget.sections.elementAt(index).menuBarWidget,
                 ),
               ),
-            )
-          ],
-        ),
+            ),
+          )
+        ],
       ),
     );
   }
