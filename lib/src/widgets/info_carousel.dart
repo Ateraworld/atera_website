@@ -75,7 +75,7 @@ class _InfoCarouselState extends State<InfoCarousel> {
                     );
                   },
                   options: CarouselOptions(
-                    height: dimensionFromSizeFactor(context, 50, max: 320),
+                    height: dimensionFromSizeFactor(context, 70),
                     viewportFraction: 1,
                     padEnds: true,
                     onPageChanged: _onPageChanged,
@@ -133,7 +133,7 @@ class _InfoCarouselState extends State<InfoCarousel> {
       ),
       Expanded(
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          mainAxisAlignment: MainAxisAlignment.start,
           mainAxisSize: MainAxisSize.max,
           children: [
             ResponsiveText(
@@ -159,6 +159,7 @@ class _InfoCarouselState extends State<InfoCarousel> {
       child: Flex(
         direction: Axis.horizontal,
         mainAxisSize: MainAxisSize.min,
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: List.from(widget.mirrored ? widgets.reversed : widgets),
       ),
     );

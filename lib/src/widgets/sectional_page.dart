@@ -41,8 +41,9 @@ class SectionalPage extends StatefulWidget {
 
 class _SectionalPageState extends State<SectionalPage> {
   late final List<Size> _sectionsHeight = List.filled(widget.sections.length, Size.zero);
-
-  double _getOffset(int index) => _sectionsHeight.take(index).map((e) => e.height).sum + widget.titleHeight;
+  double _footerHeight = 0;
+  double _getOffset(int index) =>
+      _sectionsHeight.take(index).map((e) => e.height).sum + widget.titleHeight + (index >= _sectionsHeight.length - 1 ? _footerHeight : 0);
 
   Widget _buildMenuBar() {
     return Padding(
@@ -122,21 +123,31 @@ class _SectionalPageState extends State<SectionalPage> {
             ...List.generate(
               widget.sections.length,
               (index) {
-                return ChildSizeNotifier(
-                  builder: (context, size, child) {
-                    _sectionsHeight[index] = size;
-                    if (index < widget.sections.length - 1 && widget.sectionSeparator != null) {
-                      return Column(
-                        children: [widget.sections.elementAt(index), widget.sectionSeparator!],
-                      );
-                    } else {
-                      return widget.sections.elementAt(index);
-                    }
-                  },
+                return Padding(
+                  padding: EdgeInsets.symmetric(horizontal: dimensionFromSizeFactor(context, 8)),
+                  child: ChildSizeNotifier(
+                    builder: (context, size, child) {
+                      _sectionsHeight[index] = size;
+                      if (index < widget.sections.length - 1 && widget.sectionSeparator != null) {
+                        return Column(
+                          children: [widget.sections.elementAt(index), widget.sectionSeparator!],
+                        );
+                      } else {
+                        return widget.sections.elementAt(index);
+                      }
+                    },
+                  ),
                 );
               },
             ),
-            if (widget.footer != null) widget.footer!,
+            if (widget.footer != null)
+              ChildSizeNotifier(
+                builder: (context, size, child) {
+                  _footerHeight = size.height;
+                  return child!;
+                },
+                child: widget.footer,
+              ),
           ],
         ),
       ),

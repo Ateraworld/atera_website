@@ -1,6 +1,9 @@
 import "package:atera_website/src/common/layout.dart";
+import "package:atera_website/src/widgets/fade_page_route.dart";
+import "package:atera_website/src/widgets/fullscreen_image.dart";
 import "package:atera_website/src/widgets/responsive.dart";
 import "package:atera_website/src/widgets/responsive_text.dart";
+import "package:atera_website/src/widgets/tappable.dart";
 import "package:flutter/material.dart";
 
 class MemberAvatar extends StatefulWidget {
@@ -9,7 +12,7 @@ class MemberAvatar extends StatefulWidget {
     required this.name,
     required this.imageUrl,
     this.textSizeFactor = 4,
-    this.avatarSizeFactor = 16,
+    this.avatarSizeFactor = 64,
     this.photoInfo = "",
   });
   final double textSizeFactor;
@@ -39,15 +42,31 @@ class _MemberAvatarState extends State<MemberAvatar> with SingleTickerProviderSt
         ResponsiveText(widget.name, sizeFactor: sizeFactorFromCategory(TextCategory.header)),
         const Responsive(sizeFactor: 6),
         MouseRegion(
-          onEnter: (event) => setState(() => _scale = 1.05),
+          onEnter: (event) => setState(() => _scale = 1.075),
           onExit: (event) => setState(() => _scale = 1),
           child: AnimatedScale(
             duration: const Duration(milliseconds: 250),
             curve: Curves.fastOutSlowIn,
             scale: _scale,
-            child: ClipOval(
-              child: Responsive(
-                sizeFactor: dimensionFromSizeFactor(context, widget.avatarSizeFactor, min: 55, max: 150),
+            child: Tappable(
+              heroTag: widget.imageUrl,
+              borderRadius: BorderRadius.circular(150),
+              size: Size(
+                dimensionFromSizeFactor(context, widget.avatarSizeFactor, min: 50, max: 240),
+                dimensionFromSizeFactor(context, widget.avatarSizeFactor, min: 50, max: 240),
+              ),
+              onTap: () {
+                Navigator.of(context).push(
+                  FadePageRoute(
+                    FullscreenImage(
+                      description: widget.photoInfo,
+                      imageUrl: widget.imageUrl,
+                      // heroTag: widget.imageUrl,
+                    ),
+                  ),
+                );
+              },
+              child: ClipOval(
                 child: Image.asset(
                   widget.imageUrl,
                   fit: BoxFit.cover,

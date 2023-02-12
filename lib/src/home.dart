@@ -346,56 +346,6 @@ class _HomePageState extends State<HomePage> {
               descriptionSizeFactor: sizeFactorFromCategory(TextCategory.label),
               titleSizeFactor: sizeFactorFromCategory(TextCategory.body),
               title: ResponsiveText(
-                "Per gli enti turistici",
-                sizeFactor: sizeFactorFromCategory(TextCategory.body),
-                textAlign: TextAlign.center,
-              ),
-              info: [
-                Info(
-                  "assets/images/turismo.png",
-                  "Promozione del turismo territoriale",
-                  "Il sistema di Atera è estremamente modulare: gli enti turistici e le amministrazioni locali fornendo sconti e benefici hanno la possibilità di promuovere il territorio a persone direttamente interessate",
-                ),
-                Info(
-                  "assets/images/comunicazione.png",
-                  "Canale di comunicazione",
-                  "Le associazioni incaricate del mantenimento delle infrastrutture avranno la possibilità di comunicare stato, avvisi e più in generale informazioni utili per sensibilizzare e promuovere un turismo responsabile e bene informato",
-                ),
-              ],
-            ),
-            const Divider(height: 64, thickness: 1, endIndent: 64, indent: 64),
-            InfoCarousel(
-              descriptionSizeFactor: sizeFactorFromCategory(TextCategory.label),
-              titleSizeFactor: sizeFactorFromCategory(TextCategory.body),
-              title: ResponsiveText(
-                "Per i brand",
-                sizeFactor: sizeFactorFromCategory(TextCategory.body),
-                textAlign: TextAlign.center,
-              ),
-              mirrored: true,
-              info: [
-                Info(
-                  "assets/images/app_page.png",
-                  "Una pagina dedicata",
-                  "Atera permette la creazione di pagine dedicate all'interno dell'applicazione, incrementando la visibilità degli esercizi commerciali",
-                ),
-                Info(
-                  "assets/images/target.png",
-                  "Pubblico estremamente mirato",
-                  "Proprio grazie alla sua struttura e idea, Atera raggruppa una community genuinamente interessata al mondo delle attività outdoor",
-                ),
-                Info(
-                  "assets/images/revenue.png",
-                  "Incrementa la tua customer base",
-                  "Fornendo sconti e benefici agli utenti di Atera, incrementi la visibilità dell'esercizio commerciale e attrai una clientela interessata ai tuoi prodotti",
-                ),
-              ],
-            ),
-            const Divider(height: 64, thickness: 1, endIndent: 64, indent: 64),
-            InfoCarousel(
-              descriptionSizeFactor: sizeFactorFromCategory(TextCategory.label),
-              titleSizeFactor: sizeFactorFromCategory(TextCategory.body),
-              title: ResponsiveText(
                 "Per gli utenti",
                 sizeFactor: sizeFactorFromCategory(TextCategory.body),
                 textAlign: TextAlign.center,
@@ -420,6 +370,56 @@ class _HomePageState extends State<HomePage> {
                   "assets/images/coupons.png",
                   "Ottieni benefici grazie alle tue passioni",
                   "Riscatta buoni sconto e benefici semplicemente facendo quello che ami",
+                ),
+              ],
+            ),
+            const Divider(height: 64, thickness: 1, endIndent: 64, indent: 64),
+            InfoCarousel(
+              mirrored: true,
+              descriptionSizeFactor: sizeFactorFromCategory(TextCategory.label),
+              titleSizeFactor: sizeFactorFromCategory(TextCategory.body),
+              title: ResponsiveText(
+                "Per gli enti turistici",
+                sizeFactor: sizeFactorFromCategory(TextCategory.body),
+                textAlign: TextAlign.center,
+              ),
+              info: [
+                Info(
+                  "assets/images/turismo.png",
+                  "Promozione del territorio e del turismo",
+                  "Il sistema di Atera è estremamente modulare: gli enti turistici e le amministrazioni locali fornendo sconti e benefici hanno la possibilità di promuovere il territorio a persone direttamente interessate",
+                ),
+                Info(
+                  "assets/images/comunicazione.png",
+                  "Canale di comunicazione",
+                  "Le associazioni incaricate del mantenimento delle infrastrutture avranno la possibilità di comunicare stato, avvisi e più in generale informazioni utili per sensibilizzare e promuovere un turismo responsabile e bene informato",
+                ),
+              ],
+            ),
+            const Divider(height: 64, thickness: 1, endIndent: 64, indent: 64),
+            InfoCarousel(
+              descriptionSizeFactor: sizeFactorFromCategory(TextCategory.label),
+              titleSizeFactor: sizeFactorFromCategory(TextCategory.body),
+              title: ResponsiveText(
+                "Per i brand",
+                sizeFactor: sizeFactorFromCategory(TextCategory.body),
+                textAlign: TextAlign.center,
+              ),
+              info: [
+                Info(
+                  "assets/images/app_page.png",
+                  "Una pagina dedicata",
+                  "Atera permette la creazione di pagine dedicate all'interno dell'applicazione, incrementando la visibilità degli esercizi commerciali",
+                ),
+                Info(
+                  "assets/images/target.png",
+                  "Pubblico estremamente mirato",
+                  "Proprio grazie alla sua struttura e idea, Atera raggruppa una community genuinamente interessata al mondo delle attività outdoor",
+                ),
+                Info(
+                  "assets/images/revenue.png",
+                  "Incrementa la tua customer base",
+                  "Fornendo sconti e benefici agli utenti di Atera, incrementi la visibilità dell'esercizio commerciale e attrai una clientela interessata ai tuoi prodotti",
                 ),
               ],
             ),
@@ -573,7 +573,7 @@ class _HomePageState extends State<HomePage> {
             ),
             const Responsive(sizeFactor: 8),
             Roadmap(
-              minHeight: dimensionFromSizeFactor(context, 210),
+              //minHeight: dimensionFromSizeFactor(context, 210),
               autoPlay: false,
               steps: [
                 RoadmapStep(
