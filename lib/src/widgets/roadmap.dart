@@ -1,7 +1,6 @@
 import "dart:math";
 
 import "package:atera_website/src/common/layout.dart";
-import "package:atera_website/src/widgets/child_size_notifier.dart";
 import "package:atera_website/src/widgets/responsive.dart";
 import "package:atera_website/src/widgets/responsive_text.dart";
 import "package:flutter/material.dart";
@@ -25,24 +24,10 @@ class Roadmap extends StatefulWidget {
 class _RoadmapState extends State<Roadmap> {
   int _currentStep = 0;
   bool _canPlay = true;
-  double height = 0;
-  bool _loaded = false;
   @override
   void initState() {
     _roadmapIndexChange();
-    _preloadHeight();
     super.initState();
-  }
-
-  Future<void> _preloadHeight() async {
-    for (var i = 0; i < widget.steps.length; i++) {
-      setState(() => _currentStep = i);
-      await WidgetsBinding.instance.endOfFrame;
-    }
-    setState(() {
-      _currentStep = 0;
-      _loaded = true;
-    });
   }
 
   void _roadmapIndexChange() {
@@ -76,132 +61,122 @@ class _RoadmapState extends State<Roadmap> {
   Widget build(BuildContext context) {
     var screenSize = MediaQuery.of(context).size;
     var current = widget.steps.elementAt(_currentStep);
-    return Opacity(
-      opacity: _loaded ? 1 : 0,
-      child: GestureDetector(
-        onHorizontalDragEnd: (details) {
-          if (details.primaryVelocity! < -50) {
-            setState(() => _currentStep = min(_currentStep + 1, widget.steps.length - 1));
-          } else if (details.primaryVelocity! > 50) {
-            setState(() => _currentStep = max(_currentStep - 1, 0));
-          }
-        },
-        child: ChildSizeNotifier(
-          notifyMaxSize: true,
-          builder: (context, size, child) {
-            height = size.height;
-            return child!;
-          },
-          child: Container(
-            constraints: BoxConstraints(minHeight: height),
-            color: Colors.transparent,
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.stretch,
-              mainAxisAlignment: MainAxisAlignment.start,
-              children: [
-                Center(
-                  child: Wrap(
-                    spacing: (screenSize.width) / (widget.steps.length * 1.75),
-                    children: List.generate(
-                      widget.steps.length,
-                      (index) => Icon(
-                        _iconByState(widget.steps.elementAt(index).state),
-                        size: dimensionFromSizeFactor(context, 10),
-                      ),
-                    ),
+    return GestureDetector(
+      onHorizontalDragEnd: (details) {
+        if (details.primaryVelocity! < -50) {
+          setState(() => _currentStep = min(_currentStep + 1, widget.steps.length - 1));
+        } else if (details.primaryVelocity! > 50) {
+          setState(() => _currentStep = max(_currentStep - 1, 0));
+        }
+      },
+      child: Container(
+        constraints: BoxConstraints(minHeight: widget.minHeight ?? 0),
+        color: Colors.transparent,
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          mainAxisAlignment: MainAxisAlignment.start,
+          children: [
+            Center(
+              child: Wrap(
+                spacing: (screenSize.width) / (widget.steps.length * 1.75),
+                children: List.generate(
+                  widget.steps.length,
+                  (index) => Icon(
+                    _iconByState(widget.steps.elementAt(index).state),
+                    size: dimensionFromSizeFactor(context, 10),
                   ),
                 ),
-                const Responsive(sizeFactor: 2),
-                Center(
-                  child: AnimatedSmoothIndicator(
-                    onDotClicked: (index) {
-                      setState(() {
-                        _canPlay = false;
-                        _currentStep = index;
-                      });
-                      Future.delayed(const Duration(seconds: 8), () {
-                        if (!mounted) return;
-                        setState(() => _canPlay = true);
-                      });
-                    },
-                    activeIndex: _currentStep,
-                    count: widget.steps.length,
-                    effect: WormEffect(
-                      spacing: (screenSize.width) / (widget.steps.length * 1.75),
-                      dotColor: Theme.of(context).colorScheme.surface,
-                      activeDotColor: Theme.of(context).colorScheme.secondary,
-                      radius: 128,
-                      dotHeight: dimensionFromSizeFactor(context, 10),
-                      dotWidth: dimensionFromSizeFactor(context, 10),
-                    ),
-                  ),
+              ),
+            ),
+            const Responsive(sizeFactor: 2),
+            Center(
+              child: AnimatedSmoothIndicator(
+                onDotClicked: (index) {
+                  setState(() {
+                    _canPlay = false;
+                    _currentStep = index;
+                  });
+                  Future.delayed(const Duration(seconds: 8), () {
+                    if (!mounted) return;
+                    setState(() => _canPlay = true);
+                  });
+                },
+                activeIndex: _currentStep,
+                count: widget.steps.length,
+                effect: WormEffect(
+                  spacing: (screenSize.width) / (widget.steps.length * 1.75),
+                  dotColor: Theme.of(context).colorScheme.surface,
+                  activeDotColor: Theme.of(context).colorScheme.secondary,
+                  radius: 128,
+                  dotHeight: dimensionFromSizeFactor(context, 10),
+                  dotWidth: dimensionFromSizeFactor(context, 10),
                 ),
-                const Responsive(sizeFactor: 10),
-                ResponsiveText(
-                  current.title,
-                  sizeFactor: sizeFactorFromCategory(TextCategory.header),
-                  textAlign: TextAlign.center,
-                  style: Theme.of(context)
-                      .textTheme
-                      .bodyMedium
-                      ?.copyWith(color: Theme.of(context).colorScheme.secondary, fontWeight: FontWeight.w800),
-                ),
-                const Responsive(sizeFactor: 8),
-                Padding(
-                  padding: EdgeInsets.symmetric(horizontal: dimensionFromSizeFactor(context, 16)),
-                  child: ResponsiveText(
-                    current.description,
-                    sizeFactor: sizeFactorFromCategory(TextCategory.label),
-                    textAlign: TextAlign.justify,
-                  ),
-                ),
-                if (current.substeps != null)
-                  Padding(
-                    padding: EdgeInsets.symmetric(
-                        horizontal: dimensionFromSizeFactor(context, 16), vertical: dimensionFromSizeFactor(context, 8)),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: List.generate(current.substeps!.length, (index) {
-                        var subStep = current.substeps!.elementAt(index);
-                        return Padding(
-                          padding: EdgeInsets.symmetric(vertical: dimensionFromSizeFactor(context, 4)),
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.start,
-                            crossAxisAlignment: CrossAxisAlignment.start,
+              ),
+            ),
+            const Responsive(sizeFactor: 10),
+            ResponsiveText(
+              current.title,
+              sizeFactor: sizeFactorFromCategory(TextCategory.header),
+              textAlign: TextAlign.center,
+              style: Theme.of(context)
+                  .textTheme
+                  .bodyMedium
+                  ?.copyWith(color: Theme.of(context).colorScheme.secondary, fontWeight: FontWeight.w800),
+            ),
+            const Responsive(sizeFactor: 8),
+            Padding(
+              padding: EdgeInsets.symmetric(horizontal: dimensionFromSizeFactor(context, 16)),
+              child: ResponsiveText(
+                current.description,
+                sizeFactor: sizeFactorFromCategory(TextCategory.label),
+                textAlign: TextAlign.justify,
+              ),
+            ),
+            if (current.substeps != null)
+              Padding(
+                padding:
+                    EdgeInsets.symmetric(horizontal: dimensionFromSizeFactor(context, 16), vertical: dimensionFromSizeFactor(context, 8)),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: List.generate(current.substeps!.length, (index) {
+                    var subStep = current.substeps!.elementAt(index);
+                    return Padding(
+                      padding: EdgeInsets.symmetric(vertical: dimensionFromSizeFactor(context, 4)),
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Wrap(
+                            spacing: dimensionFromSizeFactor(context, 4),
+                            crossAxisAlignment: WrapCrossAlignment.center,
                             children: [
-                              Wrap(
-                                spacing: dimensionFromSizeFactor(context, 4),
-                                crossAxisAlignment: WrapCrossAlignment.center,
-                                children: [
-                                  Icon(
-                                    _iconByState(subStep.state),
-                                    size: dimensionFromSizeFactor(context, 10),
-                                    color: Theme.of(context).colorScheme.onBackground,
-                                  ),
-                                  ResponsiveText(
-                                    subStep.title,
-                                    sizeFactor: sizeFactorFromCategory(TextCategory.body),
-                                    style: Theme.of(context).textTheme.bodyMedium?.copyWith(fontWeight: FontWeight.w800),
-                                  ),
-                                ],
+                              Icon(
+                                _iconByState(subStep.state),
+                                size: dimensionFromSizeFactor(context, 10),
+                                color: Theme.of(context).colorScheme.onBackground,
                               ),
-                              Padding(
-                                padding: EdgeInsets.only(left: dimensionFromSizeFactor(context, 14)),
-                                child: ResponsiveText(
-                                  subStep.description,
-                                  sizeFactor: sizeFactorFromCategory(TextCategory.label),
-                                ),
-                              )
+                              ResponsiveText(
+                                subStep.title,
+                                sizeFactor: sizeFactorFromCategory(TextCategory.body),
+                                style: Theme.of(context).textTheme.bodyMedium?.copyWith(fontWeight: FontWeight.w800),
+                              ),
                             ],
                           ),
-                        );
-                      }),
-                    ),
-                  ),
-                if (current.imageUrl != null) Image.asset(current.imageUrl!)
-              ],
-            ),
-          ),
+                          Padding(
+                            padding: EdgeInsets.only(left: dimensionFromSizeFactor(context, 14)),
+                            child: ResponsiveText(
+                              subStep.description,
+                              sizeFactor: sizeFactorFromCategory(TextCategory.label),
+                            ),
+                          )
+                        ],
+                      ),
+                    );
+                  }),
+                ),
+              ),
+            if (current.imageUrl != null) Image.asset(current.imageUrl!)
+          ],
         ),
       ),
     );

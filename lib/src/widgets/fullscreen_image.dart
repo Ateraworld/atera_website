@@ -14,7 +14,7 @@ class FullscreenImage extends StatelessWidget {
   Widget _buidImage(BuildContext context) {
     if (description != null) {
       return Padding(
-        padding: EdgeInsets.all(dimensionFromSizeFactor(context, 28)),
+        padding: EdgeInsets.all(dimensionFromSizeFactor(context, 20)),
         child: Flex(
           direction: Axis.vertical,
           mainAxisAlignment: MainAxisAlignment.center,
@@ -22,7 +22,7 @@ class FullscreenImage extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
             Expanded(
-              flex: 4,
+              flex: 3,
               child: FittedBox(
                 fit: BoxFit.contain,
                 child: ClipRRect(
@@ -32,7 +32,8 @@ class FullscreenImage extends StatelessWidget {
               ),
             ),
             Expanded(
-              child: Center(
+              child: Padding(
+                padding: EdgeInsets.only(top: dimensionFromSizeFactor(context, 4)),
                 child: Opacity(
                   opacity: 0.75,
                   child: Wrap(

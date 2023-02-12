@@ -11,7 +11,7 @@ class InfoCarousel extends StatefulWidget {
     required this.info,
     this.title,
     this.mirrored = false,
-    this.titleSizeFactor = 6,
+    this.titleSizeFactor = 5,
     this.descriptionSizeFactor = 4,
   });
   final Widget? title;

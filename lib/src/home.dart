@@ -344,7 +344,7 @@ class _HomePageState extends State<HomePage> {
             ),
             InfoCarousel(
               descriptionSizeFactor: sizeFactorFromCategory(TextCategory.label),
-              titleSizeFactor: sizeFactorFromCategory(TextCategory.body),
+              titleSizeFactor: sizeFactorFromCategory(TextCategory.label),
               title: ResponsiveText(
                 "Per gli utenti",
                 sizeFactor: sizeFactorFromCategory(TextCategory.body),
@@ -377,7 +377,7 @@ class _HomePageState extends State<HomePage> {
             InfoCarousel(
               mirrored: true,
               descriptionSizeFactor: sizeFactorFromCategory(TextCategory.label),
-              titleSizeFactor: sizeFactorFromCategory(TextCategory.body),
+              titleSizeFactor: sizeFactorFromCategory(TextCategory.label),
               title: ResponsiveText(
                 "Per gli enti turistici",
                 sizeFactor: sizeFactorFromCategory(TextCategory.body),
@@ -399,7 +399,7 @@ class _HomePageState extends State<HomePage> {
             const Divider(height: 64, thickness: 1, endIndent: 64, indent: 64),
             InfoCarousel(
               descriptionSizeFactor: sizeFactorFromCategory(TextCategory.label),
-              titleSizeFactor: sizeFactorFromCategory(TextCategory.body),
+              titleSizeFactor: sizeFactorFromCategory(TextCategory.label),
               title: ResponsiveText(
                 "Per i brand",
                 sizeFactor: sizeFactorFromCategory(TextCategory.body),
@@ -435,7 +435,7 @@ class _HomePageState extends State<HomePage> {
       color: Theme.of(context).colorScheme.background,
       width: screenSize.width,
       child: Padding(
-        padding: EdgeInsets.all(dimensionFromSizeFactor(context, 10)),
+        padding: EdgeInsets.all(dimensionFromSizeFactor(context, 8)),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
@@ -447,7 +447,7 @@ class _HomePageState extends State<HomePage> {
             ),
             Padding(
               padding: EdgeInsets.symmetric(
-                vertical: dimensionFromSizeFactor(context, 8),
+                vertical: dimensionFromSizeFactor(context, 10),
               ),
               child: RichText(
                 textAlign: TextAlign.justify,
@@ -516,8 +516,7 @@ class _HomePageState extends State<HomePage> {
             ),
             Padding(
               padding: EdgeInsets.symmetric(
-                vertical: dimensionFromSizeFactor(context, 1) * 4,
-                horizontal: dimensionFromSizeFactor(context, 1) * 4,
+                vertical: dimensionFromSizeFactor(context, 8),
               ),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -543,7 +542,7 @@ class _HomePageState extends State<HomePage> {
                 ],
               ),
             ),
-            const SizedBox(height: 128),
+            const Responsive(sizeFactor: 32)
           ],
         ),
       ),

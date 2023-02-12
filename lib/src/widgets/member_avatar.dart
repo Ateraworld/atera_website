@@ -12,7 +12,7 @@ class MemberAvatar extends StatefulWidget {
     required this.name,
     required this.imageUrl,
     this.textSizeFactor = 4,
-    this.avatarSizeFactor = 64,
+    this.avatarSizeFactor = 54,
     this.photoInfo = "",
   });
   final double textSizeFactor;
@@ -52,8 +52,8 @@ class _MemberAvatarState extends State<MemberAvatar> with SingleTickerProviderSt
               heroTag: widget.imageUrl,
               borderRadius: BorderRadius.circular(150),
               size: Size(
-                dimensionFromSizeFactor(context, widget.avatarSizeFactor, min: 50, max: 240),
-                dimensionFromSizeFactor(context, widget.avatarSizeFactor, min: 50, max: 240),
+                dimensionFromSizeFactor(context, widget.avatarSizeFactor, min: 42, max: 240),
+                dimensionFromSizeFactor(context, widget.avatarSizeFactor, min: 42, max: 240),
               ),
               onTap: () {
                 Navigator.of(context).push(
