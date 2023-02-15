@@ -3,6 +3,7 @@ import "package:atera_website/src/widgets/fade_page_route.dart";
 import "package:atera_website/src/widgets/fullscreen_image.dart";
 import "package:atera_website/src/widgets/responsive.dart";
 import "package:atera_website/src/widgets/responsive_text.dart";
+import "package:atera_website/src/widgets/scalable.dart";
 import "package:atera_website/src/widgets/tappable.dart";
 import "package:flutter/material.dart";
 
@@ -33,7 +34,6 @@ class _MemberAvatarState extends State<MemberAvatar> with SingleTickerProviderSt
     super.initState();
   }
 
-  double _scale = 1;
   @override
   Widget build(BuildContext context) {
     precacheImage(AssetImage(widget.imageUrl), context);
@@ -41,36 +41,31 @@ class _MemberAvatarState extends State<MemberAvatar> with SingleTickerProviderSt
       children: [
         ResponsiveText(widget.name, sizeFactor: sizeFactorFromCategory(TextCategory.header)),
         const Responsive(sizeFactor: 6),
-        MouseRegion(
-          onEnter: (event) => setState(() => _scale = 1.075),
-          onExit: (event) => setState(() => _scale = 1),
-          child: AnimatedScale(
-            duration: const Duration(milliseconds: 250),
-            curve: Curves.fastOutSlowIn,
-            scale: _scale,
-            child: Tappable(
-              heroTag: widget.imageUrl,
-              borderRadius: BorderRadius.circular(150),
-              size: Size(
-                dimensionFromSizeFactor(context, widget.avatarSizeFactor, min: 42, max: 240),
-                dimensionFromSizeFactor(context, widget.avatarSizeFactor, min: 42, max: 240),
-              ),
-              onTap: () {
-                Navigator.of(context).push(
-                  FadePageRoute(
-                    FullscreenImage(
-                      description: widget.photoInfo,
-                      imageUrl: widget.imageUrl,
-                      // heroTag: widget.imageUrl,
-                    ),
+        Scalable(
+          durationMs: 250,
+          curve: Curves.fastOutSlowIn,
+          child: Tappable(
+            heroTag: widget.imageUrl,
+            borderRadius: BorderRadius.circular(150),
+            size: Size(
+              dimensionFromSizeFactor(context, widget.avatarSizeFactor, min: 42, max: 240),
+              dimensionFromSizeFactor(context, widget.avatarSizeFactor, min: 42, max: 240),
+            ),
+            onTap: () {
+              Navigator.of(context).push(
+                FadePageRoute(
+                  FullscreenImage(
+                    description: widget.photoInfo,
+                    imageUrl: widget.imageUrl,
+                    // heroTag: widget.imageUrl,
                   ),
-                );
-              },
-              child: ClipOval(
-                child: Image.asset(
-                  widget.imageUrl,
-                  fit: BoxFit.cover,
                 ),
+              );
+            },
+            child: ClipOval(
+              child: Image.asset(
+                widget.imageUrl,
+                fit: BoxFit.cover,
               ),
             ),
           ),

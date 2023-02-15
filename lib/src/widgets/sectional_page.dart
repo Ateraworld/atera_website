@@ -120,25 +120,27 @@ class _SectionalPageState extends State<SectionalPage> {
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
             _buildBanner(),
-            ...List.generate(
-              widget.sections.length,
-              (index) {
-                return Padding(
-                  padding: EdgeInsets.symmetric(horizontal: dimensionFromSizeFactor(context, 8)),
-                  child: ChildSizeNotifier(
-                    builder: (context, size, child) {
-                      _sectionsHeight[index] = size;
-                      if (index < widget.sections.length - 1 && widget.sectionSeparator != null) {
-                        return Column(
-                          children: [widget.sections.elementAt(index), widget.sectionSeparator!],
-                        );
-                      } else {
-                        return widget.sections.elementAt(index);
-                      }
-                    },
-                  ),
-                );
-              },
+            Padding(
+              padding: EdgeInsets.all(dimensionFromSizeFactor(context, 12, scaleConst: 0.05, scalePow: 0.65)),
+              child: Column(
+                children: List.generate(
+                  widget.sections.length,
+                  (index) {
+                    return ChildSizeNotifier(
+                      builder: (context, size, child) {
+                        _sectionsHeight[index] = size;
+                        if (index < widget.sections.length - 1 && widget.sectionSeparator != null) {
+                          return Column(
+                            children: [widget.sections.elementAt(index), widget.sectionSeparator!],
+                          );
+                        } else {
+                          return widget.sections.elementAt(index);
+                        }
+                      },
+                    );
+                  },
+                ),
+              ),
             ),
             if (widget.footer != null)
               ChildSizeNotifier(
