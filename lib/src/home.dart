@@ -107,7 +107,7 @@ class _HomePageState extends State<HomePage> {
                       ),
                       ScalableIconButton(
                         onPressed: () async {
-                          await launchUrl(Uri.parse("https://github.com/Ateraverse"));
+                          await launchUrl(Uri.parse("https://github.com/Ateraworld"));
                         },
                         icon: AteraIcons.github,
                         size: dimensionFromSizeFactor(context, 10),
