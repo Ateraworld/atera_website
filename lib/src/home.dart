@@ -1,5 +1,3 @@
-import "dart:html";
-
 import "package:atera_website/src/common/layout.dart";
 import "package:atera_website/src/icons/atera_icons.dart";
 import "package:atera_website/src/widgets/info_carousel.dart";
@@ -378,22 +376,22 @@ class _HomePageState extends State<HomePage> {
             ),
             info: [
               Info(
-                "assets/images/discover.png",
+                "assets/images/discover.svg",
                 "Scopri nuove avventure",
                 "Trova la tua prossima avventura grazie a sistemi di ricerca basati su categorie e valutazioni",
               ),
               Info(
-                "assets/images/achievement.png",
+                "assets/images/achievement.svg",
                 "Poniti degli obiettivi",
                 "Con il sistema di attestazione di Atera, mantieni i record di tutte le attività completate: sali di livello e scala le classifiche",
               ),
               Info(
-                "assets/images/secure_info.png",
+                "assets/images/secure_info.svg",
                 "Informazioni concise, sicure, utili",
                 "Su Atera trovi solo le informazioni necessarie per effettuare le tue attività preferite",
               ),
               Info(
-                "assets/images/coupons.png",
+                "assets/images/coupons.svg",
                 "Ottieni benefici grazie alle tue passioni",
                 "Riscatta buoni sconto e benefici semplicemente facendo quello che ami",
               ),
@@ -411,12 +409,12 @@ class _HomePageState extends State<HomePage> {
             ),
             info: [
               Info(
-                "assets/images/turismo.png",
+                "assets/images/turismo.svg",
                 "Promozione del territorio e del turismo",
                 "Il sistema di Atera è estremamente modulare: gli enti turistici e le amministrazioni locali fornendo sconti e benefici hanno la possibilità di promuovere il territorio a persone direttamente interessate",
               ),
               Info(
-                "assets/images/comunicazione.png",
+                "assets/images/comunicazione.svg",
                 "Canale di comunicazione",
                 "Le associazioni incaricate del mantenimento delle infrastrutture avranno la possibilità di comunicare stato, avvisi e più in generale informazioni utili per sensibilizzare e promuovere un turismo responsabile e bene informato",
               ),
@@ -433,17 +431,17 @@ class _HomePageState extends State<HomePage> {
             ),
             info: [
               Info(
-                "assets/images/app_page.png",
+                "assets/images/app_page.svg",
                 "Una pagina dedicata",
                 "Atera permette la creazione di pagine dedicate all'interno dell'applicazione, incrementando la visibilità degli esercizi commerciali",
               ),
               Info(
-                "assets/images/target.png",
+                "assets/images/target.svg",
                 "Pubblico estremamente mirato",
                 "Proprio grazie alla sua struttura e idea, Atera raggruppa una community genuinamente interessata al mondo delle attività outdoor",
               ),
               Info(
-                "assets/images/revenue.png",
+                "assets/images/revenue.svg",
                 "Incrementa la tua customer base",
                 "Fornendo sconti e benefici agli utenti di Atera, incrementi la visibilità dell'esercizio commerciale e attrai una clientela interessata ai tuoi prodotti",
               ),

@@ -3,6 +3,7 @@ import "package:atera_website/src/widgets/responsive.dart";
 import "package:atera_website/src/widgets/responsive_text.dart";
 import "package:carousel_slider/carousel_slider.dart";
 import "package:flutter/material.dart";
+import "package:flutter_svg/flutter_svg.dart";
 import "package:smooth_page_indicator/smooth_page_indicator.dart";
 
 class InfoCarousel extends StatefulWidget {
@@ -69,7 +70,7 @@ class _InfoCarouselState extends State<InfoCarousel> {
                   carouselController: _controller,
                   itemCount: widget.info.length,
                   itemBuilder: (context, index, page) {
-                    return Image.asset(
+                    return SvgPicture.asset(
                       widget.info.elementAt(index).imageAssetUrl,
                       fit: BoxFit.contain,
                     );
