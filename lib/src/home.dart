@@ -2,6 +2,7 @@ import "package:atera_website/src/common/layout.dart";
 import "package:atera_website/src/icons/atera_icons.dart";
 import "package:atera_website/src/widgets/info_carousel.dart";
 import "package:atera_website/src/widgets/member_avatar.dart";
+import "package:atera_website/src/widgets/privacy_policy_page.dart";
 import "package:atera_website/src/widgets/responsive.dart";
 import "package:atera_website/src/widgets/responsive_text.dart";
 import "package:atera_website/src/widgets/roadmap.dart";
@@ -110,6 +111,13 @@ class _HomePageState extends State<HomePage> {
                           await launchUrl(Uri.parse("https://github.com/Ateraworld"));
                         },
                         icon: AteraIcons.github,
+                        size: dimensionFromSizeFactor(context, 10),
+                      ),
+                      ScalableIconButton(
+                        onPressed: () async {
+                          Navigator.of(context).pushNamed("privacy");
+                        },
+                        icon: Icons.privacy_tip_rounded,
                         size: dimensionFromSizeFactor(context, 10),
                       ),
                     ],
