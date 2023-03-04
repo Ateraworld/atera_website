@@ -115,7 +115,7 @@ class _HomePageState extends State<HomePage> {
                       ),
                       ScalableIconButton(
                         onPressed: () async {
-                          Navigator.of(context).pushNamed("privacy");
+                          Navigator.of(context).pushNamed(PrivacyPolicyPage.route);
                         },
                         icon: Icons.privacy_tip_rounded,
                         size: dimensionFromSizeFactor(context, 10),

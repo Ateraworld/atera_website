@@ -26,16 +26,18 @@ class _ChildSizeNotifierState extends State<ChildSizeNotifier> {
       (_) {
         var rBox = context.findRenderObject();
         if (rBox != null) {
-          var current = (rBox as RenderBox).size;
-          Size size;
-          if (widget.notifyMaxSize) {
-            size = Size(current.width > _maxWidth ? current.width : _maxWidth, current.height > _maxHeight ? current.height : _maxHeight);
-            _maxHeight = size.height;
-            _maxWidth = size.width;
-          } else {
-            size = current;
-          }
-          notifier.value = size;
+          try {
+            var current = (rBox as RenderBox).size;
+            Size size;
+            if (widget.notifyMaxSize) {
+              size = Size(current.width > _maxWidth ? current.width : _maxWidth, current.height > _maxHeight ? current.height : _maxHeight);
+              _maxHeight = size.height;
+              _maxWidth = size.width;
+            } else {
+              size = current;
+            }
+            notifier.value = size;
+          } catch (_) {}
         } else {
           debugPrint("renderbox is null");
         }

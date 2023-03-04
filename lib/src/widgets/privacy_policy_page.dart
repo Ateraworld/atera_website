@@ -26,7 +26,7 @@ class _PrivacyPolicyPageState extends State<PrivacyPolicyPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text("Privacy dell'app")),
+      appBar: AppBar(title: const Text("Privacy Policy dell'app")),
       body: FutureBuilder<String>(
         future: PrivacyPolicy.fetch(),
         builder: (context, snapshot) {
@@ -36,7 +36,7 @@ class _PrivacyPolicyPageState extends State<PrivacyPolicyPage> {
               itemCount: 1,
               itemBuilder: (context, index) {
                 return Padding(
-                  padding: const EdgeInsets.all(16),
+                  padding: const EdgeInsets.all(32),
                   child: TokenizedText(
                     onTokenTap: (text, type, payload) async {
                       if (type == "lk") {
