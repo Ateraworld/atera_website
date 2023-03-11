@@ -635,7 +635,7 @@ class _HomePageState extends State<HomePage> {
                   ),
                   RoadmapStep(
                     "Versione beta chiusa",
-                    "Questa versione ci permette di mostrare un prodotto perssochè finito, con funzionalità aggiuntive quali la distribuzione dei coupon sottoforma di QR codes, l'integrazione di una sezione dedicata ai commercianti che permetta loro di verificare l'attendibilità dei coupon sconto. In questa fase pianifichiamo di far testare la nostra piattaforma a un numero chiuso di utenti in modo tale da apportare migliori tramite i feedback di utenti esterni",
+                    "Questa versione ci permette di mostrare un prodotto pressoché finito, con funzionalità aggiuntive quali la distribuzione dei coupon sottoforma di QR codes, l'integrazione di una sezione dedicata ai commercianti che permetta loro di verificare l'attendibilità dei coupon sconto. In questa fase pianifichiamo di far testare la nostra piattaforma a un numero chiuso di utenti in modo tale da apportare migliori tramite i feedback di utenti esterni",
                     state: RoadmapStepState.completed,
                   ),
                   RoadmapStep(
